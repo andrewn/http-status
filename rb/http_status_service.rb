@@ -38,8 +38,13 @@ module HttpStatus
 			end
 
 			code_class 			= self.code_class( code )
-			code_class_list 	= @@statuses[code_class]["status"]
-			status_code_info	= code_class_list[code.to_s]
+
+			if code.length == 3
+				code_class_list 	= @@statuses[code_class]["status"]
+				status_code_info	= code_class_list[code.to_s]
+			elsif code.length == 1
+				code_info = @@statuses[code_class]
+			end
 		end
 
 		def self.code_class( code )

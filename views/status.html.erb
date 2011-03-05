@@ -5,5 +5,14 @@
 	</dt>
 	<dd class="desc">
 		<%= @status["desc"] %>
+
+		<% if @status["status"] %>
+			<ul class="more">
+				<% @status["status"].each do |code, status| %>
+					<li><a href="/<%= status["code"] %>"><abbr title="<%= status["title"] %>"><%= status["code"] %></abbr></a></li>
+				<% end %>
+			</ul>
+		<% end %>
+
 	</dd>
 </dl>
