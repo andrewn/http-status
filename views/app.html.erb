@@ -1,0 +1,34 @@
+<html>
+  <style type="text/css">
+  	* { font-family: 'Panic Sans', Consolas, monospace; }
+
+  	<% @bg_grad_start_col = "rgb(66,66,66)" %>
+  	<% @bg_grad_end_col   = "rgb(33,33,33)" %>
+  	
+  	body {
+  		color: #FFF;
+  		background-color: #000;
+  		margin: 2em;
+  		background-image: -webkit-gradient(
+		    linear,
+		    left bottom,
+		    right top,
+		    color-stop(0, <%= @bg_grad_start_col %>),
+		    color-stop(0.20, <%= @bg_grad_end_col %>)
+		);
+		background-image: -moz-linear-gradient(
+		    left bottom,
+		    <%= @bg_grad_start_col %> 0%,
+		    <%= @bg_grad_end_col %> 20%
+		);
+  	}
+  	.status .code  { font-size:2em; font-weight:bold; }
+  	.status .title { font-size:2em; }
+  	.status .desc  { font-size:1em; margin-left:4.3em; 
+	  				 max-width:45em; }
+
+  </style>
+  <body>
+    <%= yield %>
+  </body>
+</html>
