@@ -1,0 +1,18 @@
+<dl class="status">
+	<% @statuses.each do |code, status| %>
+	<dt>
+		<a href="/<%= status["code"] %>">
+			<span class="code"><%= status["code"] %></span>
+			<span class="title"><%= status["title"] %></span>
+		</a>
+	</dt>
+	<dd class="desc">
+		<%= status["desc"] %>
+		<ul class="more">
+			<% status["status"].each do |code,status_item| %>
+				<li><a href="/<%= status_item["code"].to_s %>"><abbr title="<%= status_item["title"] %>"><%= status_item["code"].to_s %></abbr></a></li>
+			<% end %>
+		</ul>
+	</dd>
+	<% end %>
+</dl>

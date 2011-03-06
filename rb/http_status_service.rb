@@ -9,7 +9,12 @@ module HttpStatus
 		register Sinatra::RespondTo
 
 		get '/' do 
-			"UP"
+			@title    = "HTTP Status codes"
+			@statuses = HttpStatusModel.find_all
+			respond_to do |wants|
+				wants.html 	{ erb :statuses, :layout => :app }
+				wants.json	{ JSON.generate(@statuses) }
+			end
 		end
 
 		get '/:status' do |status_code|
@@ -35,6 +40,8 @@ module HttpStatus
 				@status["status"] = order_status( @status["status"] )
 			end
 
+			@title = @status["code"].to_s + " " + @status["title"]
+
 			respond_to do |wants|
 				wants.html 	{ erb :status, :layout => :app }
 				wants.json	{ JSON.generate(@status) }
@@ -56,6 +63,12 @@ module HttpStatus
 
 		@@file_path 	= File.dirname(__FILE__) + '/../data/http_status_codes.json'
 		@@statuses 		= nil
+
+		
+		def self.find_all
+			self.load_statuses
+			@@statuses
+		end
 
 		def self.find(code)
 			unless @@statuses
