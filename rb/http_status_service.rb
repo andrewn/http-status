@@ -16,14 +16,38 @@ module HttpStatus
 			
 			status_code.gsub!( /xx/, '' )
 
-			# validate status code before doing a find
+			# TODO: validate status code before doing a find
+			#
 
-			@status = HttpStatusModel.find( status_code )
+			@status 		= HttpStatusModel.find( status_code )
+			@status["url"] 	= url_for_status(status_code)
+			
+			if status_code.length == 3
+				parent_status = HttpStatusModel.find( status_code.to_s.slice(0,1) )
+				@status["parent"] = {
+					"code"	=> parent_status["code"],
+					"title" => parent_status["title"],
+					"url"	=> url_for_status( parent_status["code"] )
+				}
+			end
+
+			if status_code.length == 1
+				@status["status"] = order_status( @status["status"] )
+			end
 
 			respond_to do |wants|
 				wants.html 	{ erb :status, :layout => :app }
 				wants.json	{ JSON.generate(@status) }
 			end
+		end
+
+		def order_status( hash )
+			sorted_array = hash.sort
+			sorted_array.map { |item| item[1] }
+		end
+
+		def url_for_status( code )
+			"/" + code
 		end
 	end
 
@@ -43,11 +67,14 @@ module HttpStatus
 			if code.length == 3
 				code_class_list 	= @@statuses[code_class]["status"]
 				status_code_info	= code_class_list[code.to_s]
-				status_code_info["parent"] = @@statuses[code_class]
 				status_code_info
 			elsif code.length == 1
-				code_info = @@statuses[code_class]
+				status_code_info = @@statuses[code_class]
 			end
+
+			@@statuses = nil
+
+			status_code_info
 		end
 
 		def self.code_class( code )

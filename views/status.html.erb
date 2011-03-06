@@ -8,7 +8,7 @@
 
 		<% if @status["status"] %>
 			<ul class="more">
-				<% @status["status"].each do |code, status| %>
+				<% @status["status"].each do |status| %>
 					<li><a href="/<%= status["code"] %>"><abbr title="<%= status["title"] %>"><%= status["code"] %></abbr></a></li>
 				<% end %>
 			</ul>
@@ -16,9 +16,13 @@
 
 		<% if @status["parent"] %>
 			<ul class="more">
-				<li><a href="/<%= @status["parent"]["code"] %>"><%= @status["parent"]["code"] %></a></li>
+				<li><a href="/<%= @status["parent"]["code"] %>"><%= @status["parent"]["code"] %> <%= @status["parent"]["title"] %></a></li>
 			</ul>
 		<% end %>
+
+		<ul class="more">
+			<li><a href="/">/</a></li>
+		</ul>
 
 	</dd>
 </dl>
