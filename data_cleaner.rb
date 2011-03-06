@@ -60,16 +60,7 @@ body.children.each do |node|
 		node_type = get_id_type( node )
 		
 		if node_type == :group
-			# entered new group
-			unless current_group.nil?
-				group_code = current_group[:code].slice(0,1)
-				groups[group_code] = current_group 
-			end
-			
-			# add last status of previous group
-			unless current_status.nil?
-				current_group[:status][current_status[:code][0]] = current_status
-			end 
+
 			current_status = nil
 
 			current_group = { 
@@ -80,13 +71,22 @@ body.children.each do |node|
 			}
 			@in_group  = true
 			@in_status = false
+
+			# Add the new group to the object now
+			# We add statuses to the object reference
+			group_code = current_group[:code].slice(0,1)
+			groups[group_code] = current_group 
+
 		elsif node_type == :status
 			# entered new status
 			@in_status = true
-			current_group[:status][current_status[:code]] = current_status unless current_status.nil?
+			
 			current_status = { :code => '', :title => '', :desc => [] }
 			current_status[:title] = status_info(node.inner_text)[:title]
 			current_status[:code]  = status_info(node.inner_text)[:code].to_i
+
+			# Add the status to the correct group
+			current_group[:status][current_status[:code]] = current_status
 		end
 	else
 		if !@in_group and !@in_status
