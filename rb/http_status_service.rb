@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra/base'
-require 'sinatra/respond_to'
+require 'vendor/sinatra-respond_to-0.6.0/lib/sinatra/respond_to'
 require 'erb'
 
 module HttpStatus
