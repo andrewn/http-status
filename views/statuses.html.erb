@@ -9,7 +9,7 @@
 	<dd class="desc">
 		<%= status["desc"] %>
 		<ul class="more">
-			<% status["status"].each do |code,status_item| %>
+			<% status["status"].each do |status_item| %>
 				<li><a href="/<%= status_item["code"].to_s %>"><abbr title="<%= status_item["title"] %>"><%= status_item["code"].to_s %></abbr></a></li>
 			<% end %>
 		</ul>

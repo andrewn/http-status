@@ -11,6 +11,11 @@ module HttpStatus
 		get '/' do 
 			@title    = "HTTP Status codes"
 			@statuses = HttpStatusModel.find_all
+
+			@statuses.each do |code, obj|
+				obj["status"] = order_status( obj["status"] )
+			end
+
 			respond_to do |wants|
 				wants.html 	{ erb :statuses, :layout => :app }
 				wants.json	{ JSON.generate(@statuses) }
