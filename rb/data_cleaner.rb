@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'nokogiri'
 
-# Get a Nokogiri::HTML:Document for the page we’re interested in...
+INPUT_PATH  = 'data/http_status_codes.html'
+OUTPUT_PATH = 'data/http_status_codes.json'
 
-doc = Nokogiri::HTML File.read 'data/http_status_codes.html'
+# Get a Nokogiri::HTML:Document for the page we’re interested in...
+doc = Nokogiri::HTML File.read INPUT_PATH
 
 body = doc.css('body')
 
@@ -129,4 +131,4 @@ end
 require 'json'
 json = JSON.pretty_generate( groups )
 
-File.open( 'data/http_status_codes.json', 'w') {|f| f.write(json) }
+File.open( OUTPUT_PATH, 'w') {|f| f.write(json) }
