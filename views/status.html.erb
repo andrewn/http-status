@@ -14,5 +14,11 @@
 			</ul>
 		<% end %>
 
+		<% if @status["parent"] %>
+			<ul class="more">
+				<li><a href="/<%= @status["parent"]["code"] %>"><%= @status["parent"]["code"] %></a></li>
+			</ul>
+		<% end %>
+
 	</dd>
 </dl>

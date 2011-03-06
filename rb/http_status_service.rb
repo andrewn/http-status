@@ -13,7 +13,8 @@ module HttpStatus
 		end
 
 		get '/:status' do |status_code|
-			#status_code = params[:status]
+			
+			status_code.gsub!( /xx/, '' )
 
 			# validate status code before doing a find
 
@@ -37,11 +38,13 @@ module HttpStatus
 				self.load_statuses
 			end
 
-			code_class 			= self.code_class( code )
+			code_class = self.code_class( code )
 
 			if code.length == 3
 				code_class_list 	= @@statuses[code_class]["status"]
 				status_code_info	= code_class_list[code.to_s]
+				status_code_info["parent"] = @@statuses[code_class]
+				status_code_info
 			elsif code.length == 1
 				code_info = @@statuses[code_class]
 			end

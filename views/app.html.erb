@@ -1,4 +1,5 @@
 <html>
+  <title><%= @status["code"] %> <%= @status["title"] %></title>
   <style type="text/css">
   	* { font-family: 'Panic Sans', Consolas, monospace; }
 
@@ -34,7 +35,8 @@
 
     .more          { padding:0; }
     .more li       { list-style:none; display:inline-block; }
-    .more li:after { content: ','; }
+    .more li:after { content:','; }
+    .more li:last-child:after { content:none; }
 
   </style>
   <body>
