@@ -38,8 +38,12 @@
     .more li:after { content:','; }
     .more li:last-child:after { content:none; }
 
+    .gh-badge { opacity:0.2; -webkit-transition: opacity 0.3s linear; }
+    .gh-badge:hover { opacity:1; }
+
   </style>
   <body>
+    <a class="gh-badge" href="http://github.com/andrewn/http-status"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://assets2.github.com/img/4c7dc970b89fd04b81c8e221ba88ff99a06c6b61?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_white_ffffff.png&path=" alt="Fork me on GitHub"></a>
     <%= yield %>
   </body>
 </html>
